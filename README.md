@@ -1,4 +1,4 @@
-# Project Idea: https://roadmap.sh/projects/reddit-client
+## Project Idea: https://roadmap.sh/projects/reddit-client
 
 
 # React + Vite
