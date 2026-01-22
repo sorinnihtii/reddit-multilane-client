@@ -35,9 +35,9 @@ const Post = ({ data, copyToClipboard }) => {
       className="mb-4 px-4 pb-2.5 hover:bg-[#f7f7f7] border-b border-b-gray-300 rounded-xl rounded-b-none"
       key={data.permalink}
     >
-      <header className="flex">
-        <a>u/{data.author}</a>
-        <p className="before:content-['•'] before:px-2">
+      <header className="flex flex-wrap whitespace-nowrap">
+        <a className="after:content-['•'] after:px-2">u/{data.author}</a>
+        <p className="">
           {convertTime(data.created_utc * 1000)}
         </p>
       </header>

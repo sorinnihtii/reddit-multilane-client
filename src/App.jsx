@@ -27,6 +27,10 @@ function App() {
       setError("Subreddit already added");
       return;
     }
+    if (lanes.length === 5) {
+      setError("You are limited to 5 subreddits at once");
+      return;
+    }
     setLanes((prev) => [...prev, subreddit]);
     setShowNewLaneForm(false);
   }
