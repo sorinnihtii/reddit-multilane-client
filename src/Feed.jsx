@@ -12,7 +12,6 @@ const Feed = ({ subreddit, handleCloseLane, laneCount }) => {
   const { data, isLoading, error } = useFetch(query);
 
   const [attemptCount, setAttemptCount] = useState(0);
-  console.log(attemptCount);
 
   useEffect(() => {
     if (!data) return;
@@ -20,6 +19,7 @@ const Feed = ({ subreddit, handleCloseLane, laneCount }) => {
     setPosts((prev) => {
       const ids = new Set(prev.map((p) => p.data.id));
       const unique = data.data.children.filter((p) => !ids.has(p.data.id));
+      console.log("unique:", unique);
       return [...prev, ...unique];
     });
   }, [data, attemptCount]);

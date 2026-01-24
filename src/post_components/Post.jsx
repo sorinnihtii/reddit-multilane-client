@@ -77,12 +77,18 @@ const Post = ({ data, copyToClipboard, laneCount }) => {
             </svg>
             <p>{data.score}</p>
           </button>
-          <button onClick={handleOpenComments} className="cursor-pointer">
+
+          <button
+            disabled={data.num_comments === 0}
+            onClick={handleOpenComments}
+            className="cursor-pointer"
+          >
             <svg height="16" width="16" icon-name="comment" viewBox="0 0 20 20">
               <path d="M10 1a9 9 0 00-9 9c0 1.947.79 3.58 1.935 4.957L.231 17.661A.784.784 0 00.785 19H10a9 9 0 009-9 9 9 0 00-9-9zm0 16.2H6.162c-.994.004-1.907.053-3.045.144l-.076-.188a36.981 36.981 0 002.328-2.087l-1.05-1.263C3.297 12.576 2.8 11.331 2.8 10c0-3.97 3.23-7.2 7.2-7.2s7.2 3.23 7.2 7.2-3.23 7.2-7.2 7.2z"></path>
             </svg>
             <p>{data.num_comments}</p>
           </button>
+
           <button
             onClick={() => copyToClipboard(full_permalink)}
             className="cursor-pointer"
@@ -94,7 +100,7 @@ const Post = ({ data, copyToClipboard, laneCount }) => {
         </div>
         {isOpenComments && (
           <>
-            <hr className="mb-2 mt-3 w-[95%] text-gray-300" />
+            <hr className="mb-2 mt-3 text-gray-300" />
             <CommentSection url={comments_link} />
           </>
         )}
