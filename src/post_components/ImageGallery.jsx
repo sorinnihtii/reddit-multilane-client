@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, laneCount }) => {
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -88,7 +88,13 @@ const ImageGallery = ({ images }) => {
       onClick={!isFullscreen ? handleFullscreen : undefined}
       onKeyDown={isFullscreen ? handleKeyDown : undefined}
       tabIndex={0}
-      className={`relative ${isFullscreen ? "h-screen w-screen" : "w-[75%]"}`}
+      className={`relative ${
+        isFullscreen
+          ? "h-screen w-screen"
+          : laneCount === 1
+            ? "w-[50%]"
+            : "w-[90%]"
+      }`}
     >
       <div
         ref={scrollRef}

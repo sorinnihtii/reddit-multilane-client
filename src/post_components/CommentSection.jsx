@@ -13,7 +13,7 @@ const CommentList = ({ url }) => {
   }, [data]);
 
   return (
-    <section>
+    <section className="flex flex-col gap-4 w-[95%] max-h-60 px-3 overflow-y-scroll no-scrollbar">
       {comments &&
         comments.map((comment) => {
           return <Comment key={comment.data.id} data={comment.data} />;

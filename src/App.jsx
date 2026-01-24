@@ -10,8 +10,6 @@ function App() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  console.log(lanes);
-
   useEffect(() => {
     setError(null);
     setSubreddit("");
@@ -99,6 +97,7 @@ function App() {
               key={lane}
               subreddit={lane}
               handleCloseLane={handleCloseLane}
+              laneCount={lanes.length}
             />
           ))}
       </main>

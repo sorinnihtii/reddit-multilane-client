@@ -11,7 +11,7 @@ const Comment = ({ data }) => {
   }
 
   return (
-    <article className="w-150 mt-6">
+    <article className="w-full">
       <header className="flex text-sm">
         <a className="font-semibold">u/{data.author}</a>
         <p className="before:content-['•'] before:px-2">
