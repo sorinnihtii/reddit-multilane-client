@@ -91,9 +91,9 @@ const ImageGallery = ({ images, laneCount }) => {
       className={`relative ${
         isFullscreen
           ? "h-screen w-screen"
-          : laneCount === 1
-            ? "w-[50%]"
-            : "w-[90%]"
+          : (laneCount === 1 && "w-[50%]") ||
+            (laneCount === 2 && "w-[90%]") ||
+            "w-full"
       }`}
     >
       <div
