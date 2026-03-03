@@ -4,12 +4,17 @@ import Post from "./post_components/Post.jsx";
 
 const homepage = "https://www.reddit.com";
 
-const Feed = ({ subreddit, handleCloseLane, laneCount }) => {
+const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
   const [query, setQuery] = useState(
     homepage + `/r/${subreddit}.json?raw_json=1`,
   );
+
   const [posts, setPosts] = useState([]);
-  const { data, isLoading, error } = useFetch(query);
+
+  const { data, isLoading, error } = useFetch(query, {
+    "User-Agent":
+      "multilane-reddit-client:1.0 (github.com/sorinnihtii/roadmapsh/tree/main/Frontend/Intermediate/reddit-client)",
+  });
 
   const [attemptCount, setAttemptCount] = useState(0);
 
@@ -19,7 +24,8 @@ const Feed = ({ subreddit, handleCloseLane, laneCount }) => {
     setPosts((prev) => {
       const ids = new Set(prev.map((p) => p.data.id));
       const unique = data.data.children.filter((p) => !ids.has(p.data.id));
-      console.log("unique:", unique);
+      console.log(unique);
+
       return [...prev, ...unique];
     });
   }, [data, attemptCount]);
@@ -40,7 +46,7 @@ const Feed = ({ subreddit, handleCloseLane, laneCount }) => {
 
   return (
     <section className="relative h-screen pt-14 bg-white">
-      <header className="flex items-center w-full h-8 gap-4 pl-4 z-10">
+      <header className="flex items-center w-full h-8 gap-4 pl-4 z-10 border-b border-gray-400">
         <button
           onClick={() => {
             handleCloseLane(subreddit);
@@ -61,6 +67,7 @@ const Feed = ({ subreddit, handleCloseLane, laneCount }) => {
                 data={post.data}
                 copyToClipboard={copyToClipboard}
                 laneCount={laneCount}
+                now={now}
               />
             );
           })}

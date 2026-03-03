@@ -1,8 +1,8 @@
-export function convertTime(time) {
-  const date = new Date(time);
-  const now = new Date();
+export function convertTime(now, posted) {
+  const formatted = new Date(now);
+  const date = new Date(posted);
 
-  const milliseconds = now - date;
+  const milliseconds = formatted - date;
   const seconds = Math.floor(milliseconds / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);

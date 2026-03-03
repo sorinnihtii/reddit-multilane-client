@@ -2,13 +2,28 @@ import { useNavigate } from "react-router-dom";
 
 import Feed from "./Feed";
 import { useEffect, useState } from "react";
+import useFetch from "./tools/useFetch.jsx";
 
 function App() {
   const [showNewLaneForm, setShowNewLaneForm] = useState(false);
   const [subreddit, setSubreddit] = useState("");
   const [lanes, setLanes] = useState([]);
   const [error, setError] = useState(null);
+  const [now, setNow] = useState(null);
   const navigate = useNavigate();
+
+  const { data: currentTime } = useFetch(
+    "https://api.api-ninjas.com/v1/timezone?timezone=UTC",
+    { "X-Api-Key": "EXVH8N3GAl2ErZ5oV3eq271zML8LHQd6Ul1xPZ7n" },
+  );
+
+  useEffect(() => {
+    if (!currentTime) return;
+    const now_iso = currentTime.local_time.replace(" ", "T") + "Z";
+    const now_unix = Math.floor(new Date(now_iso).getTime() / 1000);
+
+    setNow(now_unix);
+  }, [currentTime]);
 
   useEffect(() => {
     setError(null);
@@ -92,12 +107,14 @@ function App() {
         style={{ gridTemplateColumns: `repeat(${lanes.length}, 1fr)` }}
       >
         {lanes &&
+          now &&
           lanes.map((lane) => (
             <Feed
               key={lane}
               subreddit={lane}
               handleCloseLane={handleCloseLane}
               laneCount={lanes.length}
+              now={now}
             />
           ))}
       </main>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetch = (url) => {
+const useFetch = (url, params) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,10 +13,7 @@ const useFetch = (url) => {
         setIsLoading(true);
 
         const response = await fetch(url, {
-          headers: {
-            "User-Agent":
-              "multilane-reddit-client:1.0 (github.com/sorinnihtii/roadmapsh/tree/main/Frontend/Intermediate/reddit-client)",
-          },
+          headers: params,
         });
 
         if (!response.ok) {

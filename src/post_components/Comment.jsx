@@ -3,7 +3,7 @@ import Replies from "./Replies";
 import { convertTime } from "../tools/tools";
 import { memo } from "react";
 
-const Comment = ({ data }) => {
+const Comment = ({ data, now }) => {
   const [isOpenReplies, setIsOpenReplies] = useState(false);
 
   function handleViewReplies() {
@@ -15,7 +15,7 @@ const Comment = ({ data }) => {
       <header className="flex text-sm">
         <a className="font-semibold">u/{data.author}</a>
         <p className="before:content-['•'] before:px-2">
-          {convertTime(data.created_utc * 1000)}
+          {convertTime(now * 1000, data.created_utc * 1000)}
         </p>
       </header>
       <p>{data.body}</p>

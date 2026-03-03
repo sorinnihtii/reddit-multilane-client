@@ -3,10 +3,11 @@ import CommentSection from "./CommentSection.jsx";
 import { convertTime } from "../tools/tools.js";
 import { memo, useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
+import useFetch from "../tools/useFetch.jsx";
 
 const homepage = "https://www.reddit.com";
 
-const Post = ({ data, copyToClipboard, laneCount }) => {
+const Post = ({ data, copyToClipboard, laneCount, now }) => {
   if (data.over_18) return;
 
   const [isOpenComments, setIsOpenComments] = useState(false);
@@ -36,8 +37,8 @@ const Post = ({ data, copyToClipboard, laneCount }) => {
       key={data.permalink}
     >
       <header className="flex flex-wrap whitespace-nowrap">
-        <a className="after:content-['•'] after:px-2">u/{data.author}</a>
-        <p className="">{convertTime(data.created_utc * 1000)}</p>
+        <p className="after:content-['•'] after:px-2">u/{data.author}</p>
+        <p className="">{convertTime(now * 1000, data.created_utc * 1000)}</p>
       </header>
 
       <section>
@@ -45,6 +46,7 @@ const Post = ({ data, copyToClipboard, laneCount }) => {
           <a
             href={full_permalink}
             target="_blank"
+            rel="nooponer noreferrer"
             className="peer text-lg font-semibold wrap-anywhere"
           >
             {data.title}
@@ -73,9 +75,51 @@ const Post = ({ data, copyToClipboard, laneCount }) => {
           />
         )}
 
+        {data.domain &&
+          data.url &&
+          galleryImages.length == 0 &&
+          !data.is_video &&
+          !data.is_self && (
+            <a
+              href={data.url}
+              target="_blank"
+              rel="nooponer noreferrer"
+              className={`flex flex-col items-center border border-gray-300 rounded-xl ${laneCount == 1 ? "w-[50%]" : "w-[90%]"}`}
+            >
+              {data.preview && (
+                <img
+                  src={data.preview.images[0].source.url}
+                  alt=""
+                  className="w-full"
+                />
+              )}
+              <div className="flex w-full p-2">
+                <p className="hover:underline">{data.domain}</p>
+                <button className="px-2 py-px ml-auto mr-2 border border-gray-500 hover:border-black rounded-xl cursor-pointer">
+                  Open
+                </button>
+              </div>
+            </a>
+          )}
+
         {data.is_self && (
           <div className="[&>p>a]:wrap-anywhere [&>p>a]:text-indigo-600">
-            <ReactMarkdown>{data.selftext}</ReactMarkdown>
+            <ReactMarkdown
+              components={{
+                a: ({ href, children, ...props }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="nooponer noreferrer"
+                    {...props}
+                  >
+                    {children}
+                  </a>
+                ),
+              }}
+            >
+              {data.selftext}
+            </ReactMarkdown>
           </div>
         )}
       </section>
@@ -123,7 +167,11 @@ const Post = ({ data, copyToClipboard, laneCount }) => {
         {isOpenComments && (
           <>
             <hr className="mb-2 mt-3 text-gray-300" />
-            <CommentSection url={comments_link} laneCount={laneCount} />
+            <CommentSection
+              url={comments_link}
+              laneCount={laneCount}
+              now={now}
+            />
           </>
         )}
       </footer>
