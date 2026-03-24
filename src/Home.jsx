@@ -64,7 +64,7 @@ const Home = () => {
     <>
       <button
         onClick={handleShowNewLaneForm}
-        className="fixed right-4 bottom-4 px-3 py-0.5 cursor-pointer bg-[#FF4500] text-white text-sm rounded-xl z-100"
+        className="fixed right-4 bottom-4 px-3 py-0.5npm rub cursor-pointer bg-[#FF4500] text-white text-sm rounded-xl z-100"
       >
         New Lane
       </button>

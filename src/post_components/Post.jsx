@@ -4,7 +4,7 @@ import { convertTime } from "../tools/tools.js";
 import { memo, useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { createPortal } from "react-dom";
-const homepage = "https://www.reddit.com";
+const homepage = "/reddit";
 
 const Post = ({ data, copyToClipboard, laneCount, now }) => {
   if (data.over_18) return;
@@ -59,20 +59,18 @@ const Post = ({ data, copyToClipboard, laneCount, now }) => {
           >
             {data.title}
           </a>
-          {showTooltip &&
-            createPortal(
-              <span
-                className="
+          {showTooltip && (
+            <span
+              className="
               absolute bottom-full left-2
               px-4 pt-1 pb-2 mb-0 peer-hover:mb-1 text-white text-center whitespace-nowrap bg-black z-50 rounded-2xl text-sm
               after:absolute after:left-6 after:top-full after:rotate-180
               after:h-2 after:aspect-3/2 after:[clip-path:polygon(50%_0%,0%_100%,100%_100%)] after:bg-black
               opacity-0 peer-hover:opacity-100 transition-all duration-300"
-              >
-                open official reddit page
-              </span>,
-              document.body,
-            )}
+            >
+              open official reddit page
+            </span>
+          )}
         </div>
 
         {galleryImages.length > 0 && (
