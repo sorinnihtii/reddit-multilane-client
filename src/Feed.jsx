@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useFetch from "./tools/useFetch.jsx";
 import Post from "./post_components/Post.jsx";
 
-const homepage = "https://www.reddit.com";
+const homepage = "/reddit";
 
 const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
   const [query, setQuery] = useState(
@@ -31,9 +31,7 @@ const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
   }, [data, attemptCount]);
 
   const loadMorePosts = () => {
-    setQuery(
-      `https://www.reddit.com/r/${subreddit}.json?after=${data.data.after}&raw_json=1"`,
-    );
+    setQuery(`/reddit/r/${subreddit}.json?after=${data.data.after}&raw_json=1`);
   };
 
   const copyToClipboard = async (link) => {
@@ -41,6 +39,9 @@ const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
       await navigator.clipboard.writeText(link);
     } catch (err) {
       console.error("Failed to copy text:", err);
+      alert(err);
+    } finally {
+      alert("Link saved succesfully");
     }
   };
 
@@ -82,12 +83,15 @@ const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
 
         {isLoading && <p>Loading...</p>}
         {error && (
-          <>
-            <p>{error.message}</p>
-            <button onClick={() => setAttemptCount((prev) => prev + 1)}>
+          <div className="flex flex-col items-center justify-center gap-1 h-full bg-red-50 cursor-pointer">
+            <p className="text-red-500 mx-auto">{error.message}</p>
+            <button
+              className="rounded-md bg-gray-300 py-px px-3"
+              onClick={() => setAttemptCount((prev) => prev + 1)}
+            >
               Try again
             </button>
-          </>
+          </div>
         )}
       </div>
     </section>

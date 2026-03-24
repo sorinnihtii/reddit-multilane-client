@@ -5,7 +5,10 @@ import useFetch from "./tools/useFetch.jsx";
 const Home = () => {
   const [showNewLaneForm, setShowNewLaneForm] = useState(false);
   const [subreddit, setSubreddit] = useState("");
-  const [lanes, setLanes] = useState([]);
+  const [lanes, setLanes] = useState(() => {
+    const saved = localStorage.getItem("subreddits");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [error, setError] = useState(null);
   const [now, setNow] = useState(null);
 
@@ -27,8 +30,16 @@ const Home = () => {
     setSubreddit("");
   }, [showNewLaneForm]);
 
+  useEffect(() => {
+    saveSubreddits(lanes);
+  }, [lanes]);
+
   function handleShowNewLaneForm() {
     setShowNewLaneForm((prev) => !prev);
+  }
+
+  function saveSubreddits(value) {
+    localStorage.setItem("subreddits", JSON.stringify(value));
   }
 
   function handleNewLane(e) {
@@ -53,7 +64,7 @@ const Home = () => {
     <>
       <button
         onClick={handleShowNewLaneForm}
-        className="fixed right-4 bottom-4 px-2 py-px cursor-pointer bg-gray-200 text-sm rounded-xl z-100"
+        className="fixed right-4 bottom-4 px-3 py-0.5 cursor-pointer bg-[#FF4500] text-white text-sm rounded-xl z-100"
       >
         New Lane
       </button>
