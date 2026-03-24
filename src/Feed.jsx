@@ -45,8 +45,8 @@ const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
   };
 
   return (
-    <section className="relative h-screen pt-14 bg-white">
-      <header className="flex items-center w-full h-8 gap-4 pl-4 z-10 border-b border-gray-400">
+    <section className="relative h-screen bg-white">
+      <header className="flex items-center w-full h-8 gap-4 pl-4 border-b border-gray-400">
         <button
           onClick={() => {
             handleCloseLane(subreddit);

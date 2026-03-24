@@ -3,14 +3,14 @@ import CommentSection from "./CommentSection.jsx";
 import { convertTime } from "../tools/tools.js";
 import { memo, useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import useFetch from "../tools/useFetch.jsx";
-
+import { createPortal } from "react-dom";
 const homepage = "https://www.reddit.com";
 
 const Post = ({ data, copyToClipboard, laneCount, now }) => {
   if (data.over_18) return;
 
   const [isOpenComments, setIsOpenComments] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const full_permalink = homepage + data.permalink;
   const comments_link = full_permalink + ".json?raw_json=1";
@@ -48,19 +48,31 @@ const Post = ({ data, copyToClipboard, laneCount, now }) => {
             target="_blank"
             rel="nooponer noreferrer"
             className="peer text-lg font-semibold wrap-anywhere"
+            onMouseEnter={() => {
+              setShowTooltip(true);
+              console.log("mouse entered");
+            }}
+            onMouseLeave={() => {
+              setShowTooltip(false);
+              console.log("mouse left");
+            }}
           >
             {data.title}
           </a>
-          <span
-            className="
+          {showTooltip &&
+            createPortal(
+              <span
+                className="
               absolute bottom-full left-2
-              px-4 pt-1 pb-2 mb-0 peer-hover:mb-1 text-white text-center whitespace-nowrap bg-black z-10 rounded-2xl text-sm
+              px-4 pt-1 pb-2 mb-0 peer-hover:mb-1 text-white text-center whitespace-nowrap bg-black z-50 rounded-2xl text-sm
               after:absolute after:left-6 after:top-full after:rotate-180
-              after:h-2 after:aspect-3/2 after:[clip-path:polygon(50%_0%,0%_100%,100%_100%)] after:bg-black 
+              after:h-2 after:aspect-3/2 after:[clip-path:polygon(50%_0%,0%_100%,100%_100%)] after:bg-black
               opacity-0 peer-hover:opacity-100 transition-all duration-300"
-          >
-            open official reddit page
-          </span>
+              >
+                open official reddit page
+              </span>,
+              document.body,
+            )}
         </div>
 
         {galleryImages.length > 0 && (

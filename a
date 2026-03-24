@@ -1,0 +1,78 @@
+[33mcommit 8ad72233436a03f30eebf35c8d7f909e29e79920[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Sorin <sorinnihtii@gmail.com>
+Date:   Tue Mar 3 09:53:49 2026 +0200
+
+    03.03.2026
+
+[33mcommit 3eea6099584d1f759fc43d931deb39646698ed44[m
+Author: Sorin <sorinnihtii@gmail.com>
+Date:   Sun Jan 25 16:40:17 2026 +0200
+
+    tooltip for post title
+
+[33mcommit 3df266234de55f6b502d92f428c1e5ef712f9de1[m
+Author: Sorin <sorinnihtii@gmail.com>
+Date:   Sat Jan 24 16:31:38 2026 +0200
+
+    small fixes
+
+[33mcommit 9a000ea0b5284c906e2def3283b87a1e4e855841[m
+Author: Sorin <sorinnihtii@gmail.com>
+Date:   Sat Jan 24 15:47:28 2026 +0200
+
+    redesign comment section
+
+[33mcommit 599de7b4a0b6723d369b306e529b267e3b1a3ef7[m
+Merge: 5298c16 fbcc6e6
+Author: Sorin <sorinnihtii@gmail.com>
+Date:   Thu Jan 22 21:05:20 2026 +0200
+
+    Merge branch 'main' of https://github.com/sorinnihtii/reddit-multilane-client
+
+[33mcommit 5298c168022461faa89790404d33f0c5cd0f15d3[m
+Author: Sorin <sorinnihtii@gmail.com>
+Date:   Thu Jan 22 21:03:41 2026 +0200
+
+    limited lane number + small fixes
+
+[33mcommit fbcc6e68dd944f572d66f73bf19363fae6325dbf[m
+Author: sorinnihtii <sorinnihtii@gmail.com>
+Date:   Wed Jan 21 21:26:52 2026 +0200
+
+    Update README.md
+
+[33mcommit 892757db02786dfa9fd07b32774abdfe5afabfe1[m
+Author: sorinnihtii <sorinnihtii@gmail.com>
+Date:   Wed Jan 21 21:26:35 2026 +0200
+
+    Update README.md
+
+[33mcommit 298656b3f8bba0a41c28b5ab09e0f46131414925[m
+Author: sorinnihtii <sorinnihtii@gmail.com>
+Date:   Wed Jan 21 21:26:25 2026 +0200
+
+    Update README.md
+
+[33mcommit 5ff6f0350e1ec739f87cd61fa582c46cd416b0e7[m
+Author: sorinnihtii <sorinnihtii@gmail.com>
+Date:   Wed Jan 21 21:26:14 2026 +0200
+
+    Update README.md
+
+[33mcommit c1dcdd144542afb1e06e49da404623a772669c84[m
+Author: sorinnihtii <sorinnihtii@gmail.com>
+Date:   Wed Jan 21 21:25:53 2026 +0200
+
+    Update README.md
+
+[33mcommit 7ea42ad0d3fd2569486daf9ba3a491409402df1b[m
+Author: sorinnihtii <sorinnihtii@gmail.com>
+Date:   Wed Jan 21 21:25:29 2026 +0200
+
+    Update README.md
+
+[33mcommit 907a6829faa0ba15929205710de1f2a65dfa7bd5[m
+Author: Sorin <sorinnihtii@gmail.com>
+Date:   Wed Jan 21 21:21:50 2026 +0200
+
+    created separate repo

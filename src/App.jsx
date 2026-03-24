@@ -1,123 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
-import Feed from "./Feed";
-import { useEffect, useState } from "react";
-import useFetch from "./tools/useFetch.jsx";
+import Home from "./Home.jsx";
+import About from "./About.jsx";
 
 function App() {
-  const [showNewLaneForm, setShowNewLaneForm] = useState(false);
-  const [subreddit, setSubreddit] = useState("");
-  const [lanes, setLanes] = useState([]);
-  const [error, setError] = useState(null);
-  const [now, setNow] = useState(null);
-  const navigate = useNavigate();
-
-  const { data: currentTime } = useFetch(
-    "https://api.api-ninjas.com/v1/timezone?timezone=UTC",
-    { "X-Api-Key": "EXVH8N3GAl2ErZ5oV3eq271zML8LHQd6Ul1xPZ7n" },
-  );
-
-  useEffect(() => {
-    if (!currentTime) return;
-    const now_iso = currentTime.local_time.replace(" ", "T") + "Z";
-    const now_unix = Math.floor(new Date(now_iso).getTime() / 1000);
-
-    setNow(now_unix);
-  }, [currentTime]);
-
-  useEffect(() => {
-    setError(null);
-    setSubreddit("");
-  }, [showNewLaneForm]);
-
-  function handleShowNewLaneForm() {
-    setShowNewLaneForm((prev) => !prev);
-  }
-
-  function handleNewLane(e) {
-    e.preventDefault();
-    if (lanes.includes(subreddit)) {
-      setError("Subreddit already added");
-      return;
-    }
-    if (lanes.length === 5) {
-      setError("You are limited to 5 subreddits at once");
-      return;
-    }
-    setLanes((prev) => [...prev, subreddit]);
-    setShowNewLaneForm(false);
-  }
-
-  const handleCloseLane = (toBeRemoved) => {
-    setLanes((prev) => prev.filter((p) => p != toBeRemoved));
-  };
-
   return (
     <>
-      <nav className="fixed flex items-center left-0 top-0 h-14 px-10 w-screen bg-white border-b-2 border-gray-700 z-100">
-        <header className="flex flex-col">
-          <h1 className="cursor-default">Reddit Multi Lane</h1>
-        </header>
-        <button
-          onClick={handleShowNewLaneForm}
-          className="ml-auto px-2 py-px cursor-pointer bg-gray-200 text-sm rounded-xl"
-        >
-          New Lane
-        </button>
-      </nav>
-      {showNewLaneForm && (
-        <form
-          onSubmit={handleNewLane}
-          className="fixed flex flex-col justify-center top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-300 w-[25vw] p-4 bg-white border-2 rounded-xl"
-        >
-          <label
-            className="font-semibold text-md text-center"
-            htmlFor="subreddit"
-          >
-            Please enter the name of the subreddit:
-          </label>
-          <input
-            id="subreddit"
-            type="text"
-            pattern="[A-Za-z]+"
-            value={subreddit}
-            onInput={(e) => setSubreddit(e.target.value)}
-            className="mt-1 h-6 border rounded-md"
-          />
-          <button
-            type="submit"
-            className="py-1.75 mt-3 w-fit px-4 mx-auto text-xs bg-black text-white font-semibold rounded-md cursor-pointer"
-          >
-            Add Subreddit
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setShowNewLaneForm(false);
-            }}
-            className="text-xs py-1 mt-1 mx-auto px-10 text-black font-semibold cursor-pointer"
-          >
-            Cancel
-          </button>
-          {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
-        </form>
-      )}
-      <main
-        className={`relative grid w-screen h-screen gap-px ${lanes.length > 1 ? "bg-gray-500" : "bg-white"}`}
-        style={{ gridTemplateColumns: `repeat(${lanes.length}, 1fr)` }}
-      >
-        {lanes &&
-          now &&
-          lanes.map((lane) => (
-            <Feed
-              key={lane}
-              subreddit={lane}
-              handleCloseLane={handleCloseLane}
-              laneCount={lanes.length}
-              now={now}
-            />
-          ))}
-      </main>
+      <div className="flex relative items-center left-0 top-0 h-14 px-10 w-screen bg-white border-b-2 border-gray-700">
+        <img src="../res/reddit-logo.png" className="h-12"></img>
+        <h1 className="cursor-default text-lg text-[#FF4500]">
+          Reddit MultiLane
+        </h1>
+        <Link to="/" className="ml-8 text-sm cursor-pointer">
+          Home
+        </Link>
+        <Link to="/about" className="ml-8 text-sm cursor-pointer">
+          About
+        </Link>
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </>
   );
 }
