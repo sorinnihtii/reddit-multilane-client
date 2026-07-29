@@ -8,7 +8,6 @@ const useFetch = (url, params) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(url);
         setError(null);
         setIsLoading(true);
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Replies from "./Replies";
-import { convertTime } from "../tools/tools";
+import { convertTime } from "../tools/convertTime";
 import { memo } from "react";
 
 const Comment = ({ data, now }) => {

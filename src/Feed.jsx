@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useFetch from "./tools/useFetch.jsx";
 import Post from "./post_components/Post.jsx";
+import { generateSubredditResponse } from "./tools/generateSubredditResponse.js";
 
-const homepage = "/reddit";
+const homepage = "localhost:3000/api";
 
 const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
-  const [query, setQuery] = useState(
-    homepage + `/r/${subreddit}.json?raw_json=1`,
-  );
-
+  const [query, setQuery] = useState(homepage + `/subreddit/${subreddit}`);
   const [posts, setPosts] = useState([]);
 
-  const { data, isLoading, error } = useFetch(query, {
-    "User-Agent":
-      "multilane-reddit-client:1.0 (github.com/sorinnihtii/roadmapsh/tree/main/Frontend/Intermediate/reddit-client)",
-  });
+  // const { data, isLoading, error } = useFetch(query, {
+  //   "User-Agent":
+  //     "multilane-reddit-client:1.0 (github.com/sorinnihtii/roadmapsh/tree/main/Frontend/Intermediate/reddit-client)",
+  // });
+
+  const data = useMemo(() => generateSubredditResponse(), [query]);
+
+  const isLoading = false;
+  const error = null;
 
   const [attemptCount, setAttemptCount] = useState(0);
 
@@ -24,14 +27,14 @@ const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
     setPosts((prev) => {
       const ids = new Set(prev.map((p) => p.data.id));
       const unique = data.data.children.filter((p) => !ids.has(p.data.id));
-      console.log(unique);
 
       return [...prev, ...unique];
     });
   }, [data, attemptCount]);
 
   const loadMorePosts = () => {
-    setQuery(`/reddit/r/${subreddit}.json?after=${data.data.after}&raw_json=1`);
+    // setQuery(`/reddit/r/${subreddit}.json?after=${data.data.after}&raw_json=1`);
+    return;
   };
 
   const copyToClipboard = async (link) => {
@@ -75,7 +78,7 @@ const Feed = ({ subreddit, handleCloseLane, laneCount, now }) => {
         {!isLoading && !error && data && (
           <button
             onClick={loadMorePosts}
-            className="px-4 py-px bg-orange-400 rounded-xl cursor-pointer"
+            className="my-4 mx-4 px-4 py-px bg-orange-400 rounded-xl cursor-pointer"
           >
             View more posts
           </button>

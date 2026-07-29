@@ -64,9 +64,9 @@ const Home = () => {
     <>
       <button
         onClick={handleShowNewLaneForm}
-        className="fixed right-4 bottom-4 px-3 py-0.5npm rub cursor-pointer bg-[#FF4500] text-white text-sm rounded-xl z-100"
+        className="fixed right-4 bottom-4 px-3 py-0.5 cursor-pointer bg-[#FF4500] text-white text-sm rounded-xl z-100"
       >
-        New Lane
+        New Subreddit
       </button>
       {showNewLaneForm && (
         <form
@@ -109,17 +109,24 @@ const Home = () => {
         className={`grid w-screen h-screen gap-px ${lanes.length > 1 ? "bg-gray-500" : "bg-white"}`}
         style={{ gridTemplateColumns: `repeat(${lanes.length}, 1fr)` }}
       >
-        {lanes &&
-          now &&
-          lanes.map((lane) => (
-            <Feed
-              key={lane}
-              subreddit={lane}
-              handleCloseLane={handleCloseLane}
-              laneCount={lanes.length}
-              now={now}
-            />
-          ))}
+        {lanes.length > 0 && now
+          ? lanes.map((lane) => (
+              <Feed
+                key={lane}
+                subreddit={lane}
+                handleCloseLane={handleCloseLane}
+                laneCount={lanes.length}
+                now={now}
+              />
+            ))
+          : lanes.length === 0 && (
+              <button
+                onClick={handleShowNewLaneForm}
+                className="mx-auto my-auto cursor-pointer"
+              >
+                Click here to add a new subreddit
+              </button>
+            )}
       </main>
     </>
   );

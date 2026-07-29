@@ -1,11 +1,18 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import useFetch from "../tools/useFetch";
 import Comment from "./Comment";
+import generateCommentsResponse from "../tools/generateCommentsResponse";
 
 const CommentList = ({ url, laneCount, now }) => {
   const [comments, setComments] = useState(null);
 
-  const { data, isLoading, error } = useFetch(url);
+  // const { data, isLoading, error } = useFetch(url);
+
+  const data = useMemo(() => generateCommentsResponse(), []);
+  const isLoading = false;
+  const error = null;
+
+  console.log(comments);
 
   useEffect(() => {
     if (!data) return;

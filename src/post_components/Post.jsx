@@ -1,6 +1,6 @@
 import ImageGallery from "./ImageGallery.jsx";
 import CommentSection from "./CommentSection.jsx";
-import { convertTime } from "../tools/tools.js";
+import { convertTime } from "../tools/convertTime.js";
 import { memo, useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { createPortal } from "react-dom";
@@ -50,11 +50,9 @@ const Post = ({ data, copyToClipboard, laneCount, now }) => {
             className="peer text-lg font-semibold wrap-anywhere"
             onMouseEnter={() => {
               setShowTooltip(true);
-              console.log("mouse entered");
             }}
             onMouseLeave={() => {
               setShowTooltip(false);
-              console.log("mouse left");
             }}
           >
             {data.title}
