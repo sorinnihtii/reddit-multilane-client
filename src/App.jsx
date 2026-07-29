@@ -2,12 +2,13 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 import Home from "./Home.jsx";
 import About from "./About.jsx";
+import logo from "./assets/logo.png";
 
 function App() {
   return (
     <>
       <div className="flex relative items-center left-0 top-0 h-14 px-10 w-screen bg-white border-b-2 border-gray-700">
-        <img src="../res/reddit-logo.png" className="h-12"></img>
+        <img src={logo} className="h-12"></img>
         <h1 className="cursor-default text-lg text-[#FF4500]">
           Reddit MultiLane
         </h1>
