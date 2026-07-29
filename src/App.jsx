@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 import Home from "./Home.jsx";
 import About from "./About.jsx";
-import logo from "./assets/logo.png";
+import logo from "./assets/reddit-logo.png";
 
 function App() {
   return (
